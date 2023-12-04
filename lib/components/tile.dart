@@ -1,34 +1,31 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../models/expense.dart';
 
 class ExpenseTile extends StatelessWidget {
-  String title;
-  double amount;
-  Icon iconD;
-  String date;
-
-  ExpenseTile({Key? key,required this.amount, required this.date, required this.title,required this.iconD}) : super(key: key);
+  final Expense expense;
+  const ExpenseTile({
+    Key? key,
+    required this.expense,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(title),
+      title: Text(expense.name),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("\$${amount.toString()}"),
-          const SizedBox(
-            width: 5,
-          ),
+          Text("\$${expense.amount.toStringAsFixed(2)}"),
           Row(
-              children: [
-                iconD,
-
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(date.toString()),
-              ]),
+            children: [
+              Icon(categoryIcon[expense.category]),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(DateFormat.yMd().format(expense.date).toString()),
+            ],
+          ),
         ],
       ),
     );

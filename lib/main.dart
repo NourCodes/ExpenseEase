@@ -1,7 +1,6 @@
 import 'package:expense_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'data/expense_data.dart';
 void main() {
   runApp(const MyApp());
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => ExpenseData(),
       builder: (context, child) => const MaterialApp(
-
+        debugShowCheckedModeBanner: false,
         home: HomePage(),
       ),
     );
