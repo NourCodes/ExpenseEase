@@ -3,6 +3,7 @@ import 'package:expense_app/pages/newexpense.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/expenselist.dart';
+import '../models/expense.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -21,25 +22,64 @@ class _HomePageState extends State<HomePage> {
       builder: (context) => Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: NewExpense(),
+        child: const NewExpense(),
+      ),
+    );
+  }
+
+  void removeExpense(Expense expense) {
+    int index = Provider.of<ExpenseData>(context, listen: false)
+        .expenses
+        .indexOf(expense);
+    Provider.of<ExpenseData>(context, listen: false).removeExpense(expense);
+
+    setState(() {});
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text("Expense Deleted"),
+        duration: const Duration(seconds: 5),
+        action: SnackBarAction(
+          onPressed: () {
+            setState(() {
+              Provider.of<ExpenseData>(context, listen: false)
+                  .expenses
+                  .insert(index, expense);
+            });
+          },
+          label: "Undo",
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text("No Expense Found"),
+    );
+
     return Consumer<ExpenseData>(
-      builder: (context, value, child) => Scaffold(
-        body: ExpenseList(
-          expenses: value.expenses,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: addExpense,
-          child: const Icon(
-            Icons.add,
+      builder: (context, value, child) {
+        if (value.expenses.isNotEmpty) {
+          mainContent = ExpenseList(
+            onRemove: removeExpense,
+            expenses: value.expenses,
+          );
+        }
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Expense Tracker"),
           ),
-        ),
-      ),
+          body: mainContent,
+          floatingActionButton: FloatingActionButton(
+            onPressed: addExpense,
+            child: const Icon(
+              Icons.add,
+            ),
+          ),
+        );
+      },
     );
   }
 }

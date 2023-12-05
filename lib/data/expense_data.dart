@@ -22,4 +22,7 @@ class ExpenseData extends ChangeNotifier {
     expenses.remove(expense);
     notifyListeners();
   }
-}
+
+  }
+
+
