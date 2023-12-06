@@ -1,8 +1,9 @@
+import 'package:expense_app/chart/chart_page.dart';
 import 'package:expense_app/data/expense_data.dart';
-import 'package:expense_app/pages/newexpense.dart';
+import 'package:expense_app/pages/newExpense.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../components/expenselist.dart';
+import '../components/expenseList.dart';
 import '../models/expense.dart';
 
 class HomePage extends StatefulWidget {
@@ -62,16 +63,24 @@ class _HomePageState extends State<HomePage> {
     return Consumer<ExpenseData>(
       builder: (context, value, child) {
         if (value.expenses.isNotEmpty) {
-          mainContent = ExpenseList(
-            onRemove: removeExpense,
-            expenses: value.expenses,
+          mainContent = Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ChartPage(expenses: value.expenses),
+              Expanded(
+                child: ExpenseList(
+                  onRemove: removeExpense,
+                  expenses: value.expenses,
+                ),
+              ),
+            ],
           );
         }
         return Scaffold(
           appBar: AppBar(
             title: const Text("Expense Tracker"),
           ),
-          body: mainContent,
+          body:mainContent,
           floatingActionButton: FloatingActionButton(
             onPressed: addExpense,
             child: const Icon(

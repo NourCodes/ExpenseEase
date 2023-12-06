@@ -12,6 +12,7 @@ class ExpenseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: Colors.grey.shade300,
       title: Text(expense.name),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

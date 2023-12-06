@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+
 enum Category { food, travel, leisure, work }
 
 class Expense {
@@ -13,7 +14,8 @@ class Expense {
       {required this.category,
       required this.amount,
       required this.name,
-      required this.date}): id = const Uuid().v4() ;
+      required this.date})
+      : id = const Uuid().v4();
 }
 
 //create a map for icon and and category
@@ -23,3 +25,27 @@ Map<Category, IconData> categoryIcon = {
   Category.leisure: Icons.movie,
   Category.work: Icons.work,
 };
+
+//this class is responsible for grouping expenses based on categories and calculating total expenses for each category
+class ExpenseCategoryGroup {
+  final Category category;
+  final List<Expense> expenses;
+  ExpenseCategoryGroup({required this.category, required this.expenses});
+
+  ExpenseCategoryGroup.forCategory(this.category, List<Expense> allExpenses)
+      : expenses = allExpenses
+            .where((element) => element.category == category)
+            .toList();
+
+// Method to calculate the total expenses
+  double get totalExpense {
+    double sum = 0;
+    // Iterate through each expense
+    for (final expense in expenses) {
+      // Add the amount of each expense to the total sum
+      sum += expense.amount;
+    }
+    // Return the calculated total sum of expenses
+    return sum;
+  }
+}
