@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'chart_bar.dart';
 
 class ChartPage extends StatefulWidget {
-  List<Expense> expenses;
-  ChartPage({Key? key, required this.expenses}) : super(key: key);
+  final List<Expense> expenses;
+  const ChartPage({Key? key, required this.expenses}) : super(key: key);
 
   @override
   State<ChartPage> createState() => _ChartPageState();
 }
 
 class _ChartPageState extends State<ChartPage> {
-
   // Method to create a list of ExpenseCategoryGroup objects for specific categories.
   List<ExpenseCategoryGroup> get categoryGroups {
     return [
@@ -21,6 +20,7 @@ class _ChartPageState extends State<ChartPage> {
       ExpenseCategoryGroup.forCategory(Category.travel, widget.expenses),
     ];
   }
+
   // Method to calculate the maximum total expense across all groups
   double get maxTotal {
     double maxTotalExpense = 0;
@@ -33,6 +33,15 @@ class _ChartPageState extends State<ChartPage> {
     // Return the calculated maximum total expense.
 
     return maxTotalExpense;
+  }
+
+  Widget getIconWidget(Category category) {
+    Icon icon = getIcon(category);
+    return icon;
+  }
+
+  Icon getIcon(Category category) {
+    return Icon(ExpenseCategoryGroup.categoryIcon[category]);
   }
 
   @override
@@ -49,7 +58,7 @@ class _ChartPageState extends State<ChartPage> {
         gradient: const LinearGradient(
           colors: [
             Colors.grey,
-            Colors.black
+            Colors.black,
           ],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
@@ -77,9 +86,7 @@ class _ChartPageState extends State<ChartPage> {
                   (e) => Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Icon(
-                        categoryIcon[e.category],
-                      ),
+                      child: getIconWidget(e.category),
                     ),
                   ),
                 )

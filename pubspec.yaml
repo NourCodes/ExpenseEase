@@ -50,6 +50,8 @@ dev_dependencies:
   intl:
   provider:
   uuid:
+  hive_flutter:
+  hive:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

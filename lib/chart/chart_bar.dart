@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
 class ChartBar  extends StatelessWidget {
   final double fill;
-   ChartBar ({Key? key,required this.fill}) : super(key: key);
+   const ChartBar ({Key? key,required this.fill}) : super(key: key);
 
 
   @override

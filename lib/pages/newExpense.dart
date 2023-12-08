@@ -37,7 +37,7 @@ class _NewExpenseState extends State<NewExpense> {
         selectedDate != null &&
         selectedC.name.isNotEmpty) {
       Expense newExpense = Expense(
-        category: selectedC,
+        category: selectedC.name,
         amount: double.parse(_amountController.text),
         name: _controller.text,
         date: DateTime.now(),
@@ -55,7 +55,8 @@ class _NewExpenseState extends State<NewExpense> {
           actions: [
             TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text("OK")),
+                child: const Text("OK"),
+            ),
           ],
         ),
       );
