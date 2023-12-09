@@ -18,12 +18,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-
-    //prepare the data
     super.initState();
+    //load data
     Provider.of<ExpenseData>(context, listen: false).loadData();
-
   }
+
+//add Expense
   void addExpense() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -65,7 +65,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Widget mainContent = const Center(
-      child: Text("No Expense Found"),
+      child: Text(
+        "No Expense Found",
+        style: TextStyle(fontSize: 15),
+      ),
     );
 
     return Consumer<ExpenseData>(
@@ -74,7 +77,9 @@ class _HomePageState extends State<HomePage> {
           mainContent = Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //chart
               ChartPage(expenses: value.expenses),
+              // expenses list
               Expanded(
                 child: ExpenseList(
                   onRemove: removeExpense,
@@ -86,10 +91,19 @@ class _HomePageState extends State<HomePage> {
         }
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Expense Tracker"),
+            title: const Text(
+              "Expense Tracker",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.black,
           ),
-          body:mainContent,
+          body: mainContent,
           floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
             onPressed: addExpense,
             child: const Icon(
               Icons.add,

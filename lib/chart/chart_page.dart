@@ -2,8 +2,13 @@ import 'package:expense_app/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'chart_bar.dart';
 
+//This widget displays a visual chart representation of expenses
+//grouped by specific categories. It utilizes the ExpenseCategoryGroup
+//class to organize and calculate total expenses for each category.
 class ChartPage extends StatefulWidget {
+  // List of expenses to be visualized in the chart
   final List<Expense> expenses;
+
   const ChartPage({Key? key, required this.expenses}) : super(key: key);
 
   @override
@@ -35,6 +40,7 @@ class _ChartPageState extends State<ChartPage> {
     return maxTotalExpense;
   }
 
+  // method to retrieve the Icon widget for a specific category.
   Widget getIconWidget(Category category) {
     Icon icon = getIcon(category);
     return icon;
@@ -70,8 +76,11 @@ class _ChartPageState extends State<ChartPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                // Iterate through each group
                 for (final expense in categoryGroups)
                   ChartBar(
+                    // If the total expense of a group is 0, set fill to 0, else
+                    // set it to total expense of the specific group divided by the maxTotal of all groups.
                     fill: expense.totalExpense == 0
                         ? 0
                         : expense.totalExpense / maxTotal,

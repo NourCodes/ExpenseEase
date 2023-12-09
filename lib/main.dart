@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'data/expense_data.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-void main() async{
+
+void main() async {
   //initialize hive
   await Hive.initFlutter();
 
@@ -20,11 +21,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => ExpenseData(),
-      builder: (context, child) => const MaterialApp(
+      builder: (context, child) => MaterialApp(
+        theme: ThemeData(
+          fontFamily: "OpenSans",
+        ),
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: const HomePage(),
       ),
     );
   }
 }
-

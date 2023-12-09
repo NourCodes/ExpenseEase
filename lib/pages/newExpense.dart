@@ -54,8 +54,8 @@ class _NewExpenseState extends State<NewExpense> {
               "Please recheck your data and make sure you filled it all and the data is valid"),
           actions: [
             TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text("OK"),
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("OK"),
             ),
           ],
         ),
@@ -85,11 +85,13 @@ class _NewExpenseState extends State<NewExpense> {
     return Form(
       key: _formKey,
       child: Padding(
-        padding:
-            const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 15),
+        padding: const EdgeInsets.only(
+          top: 40,
+          right: 10,
+          left: 10,
+        ),
         child: Column(
           children: [
-
             const Text(
               "Add a new Expense",
               style: TextStyle(
@@ -98,7 +100,7 @@ class _NewExpenseState extends State<NewExpense> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             TextFormField(
               validator: (value) {
@@ -107,18 +109,22 @@ class _NewExpenseState extends State<NewExpense> {
                 }
                 return null;
               },
-              decoration: const InputDecoration(
-                focusedBorder: OutlineInputBorder(
+              decoration: InputDecoration(
+                hintText: "ex. Cinema",
+                hintStyle: TextStyle(
+                  color: Colors.grey.shade500,
+                ),
+                focusedBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(8),
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
+                enabledBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(8),
                   ),
                 ),
-                label: Text("Title"),
+                label: const Text("Title"),
               ),
               controller: _controller,
             ),
@@ -133,23 +139,27 @@ class _NewExpenseState extends State<NewExpense> {
                       if (value == null || value.isEmpty) {
                         return "Please fill the data";
                       } else if (double.parse(value) <= 0) {
-                        return "Amount must be greater than 0";
+                        return "Data must be greater than 0";
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                        focusedBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                        hintText: "20",
+                        hintStyle: TextStyle(
+                          color: Colors.grey.shade500,
+                        ),
+                        focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(8),
                           ),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(8),
                           ),
                         ),
                         prefixText: "\$ ",
-                        label: Text("Amount")),
+                        label: const Text("Amount")),
                     keyboardType: TextInputType.number,
                     controller: _amountController,
                   ),
@@ -170,7 +180,7 @@ class _NewExpenseState extends State<NewExpense> {
               ],
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -198,13 +208,29 @@ class _NewExpenseState extends State<NewExpense> {
                 Row(
                   children: [
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white70, elevation: 3),
                       onPressed: save,
-                      child: const Text("Save"),
+                      child: const Text(
+                        "Save",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white70, elevation: 3),
                       onPressed: cancel,
-                      child: const Text("cancel"),
+                      child: const Text(
+                        "Cancel",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ],
                 ),

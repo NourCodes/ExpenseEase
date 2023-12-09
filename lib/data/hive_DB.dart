@@ -5,16 +5,15 @@ class HiveDB {
   //reference box
   var box = Hive.box("expense");
 
-   //read data
+  //read data
   List<Expense> readData() {
-
     // list that will be returned
     List<Expense> allExpense = [];
     //if there is expenses return it else return empty list
-        if(box.get("ALL_EXPENSES")!= null){
-          List savedExpense = box.get("ALL_EXPENSES");
+    if (box.get("ALL_EXPENSES") != null) {
+      List savedExpense = box.get("ALL_EXPENSES");
 
-          for (int i = 0; i < savedExpense.length; i++) {
+      for (int i = 0; i < savedExpense.length; i++) {
         //create a new expense object
         Expense newExpense = Expense(
           category: savedExpense[i][3],
@@ -41,7 +40,7 @@ class HiveDB {
 
       allData.add([title, date, amount, category]);
     }
-    //store in our database
+    //store in database
     box.put("ALL_EXPENSES", allData);
   }
 }
